@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Bangun Ruang - Interaktif & AR</title>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@r128/examples/jsm/"
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* HOME PAGE */
+        .home-page {
+            text-align: center;
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .home-page h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .home-page p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .shapes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .shape-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #333;
+        }
+
+        .shape-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .shape-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .shape-card .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* BANGUN PAGE */
+        .bangun-page {
+            display: none;
+        }
+
+        .bangun-page.active {
+            display: block;
+        }
+
+        .breadcrumb {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: #ffd700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .bangun-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .bangun-title {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .bangun-desc {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* SECTION LAYOUT */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 3D VIEWER */
+        #canvas {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #f0f4ff 0%, #e8ecff 100%);
+            margin-bottom: 1rem;
+        }
+
+        .viewer-controls {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        button.secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+
+        button.secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        button.active {
+            background: #764ba2;
+            box-shadow: 0 0 10px rgba(118, 75, 162, 0.5);
+        }
+
+        /* VIDEO SECTION */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #000;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-container video,
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-controls-info {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* KUIS */
+        .quiz-container {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .quiz-progress {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: #667eea;
+            background: #f5f5ff;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 1rem;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .quiz-option.correct {
+            border-color: #4caf50;
+            background: #f1f8f4;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #f44336;
+            background: #fff3f1;
+        }
+
+        .quiz-feedback {
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #f44336;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .quiz-result h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .score-badge {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            color: #999;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: #000;
+        }
+
+        /* PROGRESS TRACKING */
+        .progress-info {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #ffd700;
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        /* NAVIGATION */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        /* AR SECTION */
+        .ar-section {
+            background: linear-gradient(135deg, #ff9a56, #ff6b6b);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .ar-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .ar-info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .ar-button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .ar-button-group button {
+            background: white;
+            color: #ff6b6b;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .ar-button-group button:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* RESPONSIF */
+        @media (max-width: 768px) {
+            nav .nav-links {
+                gap: 0.5rem;
+            }
+
+            .shapes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bangun-title {
+                font-size: 1.5rem;
+            }
+
+            #canvas {
+                height: 350px;
+            }
+
+            .home-page h2 {
+                font-size: 1.8rem;
+            }
+
+            .viewer-controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .quiz-option {
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .shapes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #canvas {
+                height: 300px;
+            }
+
+            .bangun-title {
+                font-size: 1.3rem;
+            }
+
+            nav h1 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ACCESSIBILITY */
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid #ffd700;
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="container">
+            <h1>📐 Belajar Bangun Ruang</h1>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showHome(event)">Beranda</a></li>
+                <li><a href="#" onclick="showAdmin(event)">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="homePage" class="home-page">
+        <div class="container">
+            <h2>🎓 Pelajari Bangun Ruang dengan AR & 3D</h2>
+            <p>Jelajahi bangun ruang 3D dengan visualisasi interaktif, video pembelajaran, dan augmented reality. Pahami konsep geometri dengan cara yang menyenangkan!</p>
+
+            <div class="progress-info">
+                <strong>Progress Pembelajaran Kamu:</strong>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+                </div>
+                <small><span id="progressText">0/7 topik selesai</span></small>
+            </div>
+
+            <div class="shapes-grid" id="shapesGrid">
+                <!-- Diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BANGUN PAGE -->
+    <div id="bangunPage" class="bangun-page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="#" onclick="showHome(event)">← Kembali ke Beranda</a>
+            </div>
+
+            <div class="bangun-container">
+                <h2 class="bangun-title" id="bangunTitle">Kubus</h2>
+                <p class="bangun-desc" id="bangunDesc">Deskripsi akan dimuat dari data...</p>
+
+                <!-- 3D VIEWER SECTION -->
+                <div class="section">
+                    <div class="section-title">📺 Visualisasi 3D Interaktif</div>
+                    <canvas id="canvas"></canvas>
+                    <div class="viewer-controls">
+                        <button onclick="resetViewer()">🔄 Reset</button>
+                        <button onclick="toggleWireframe()" id="wireframeToggle" class="secondary">📐 Tampilkan Rusuk</button>
+                        <button onclick="autoRotate()" id="rotateToggle" class="secondary">⚙️ Putar Otomatis</button>
+                    </div>
+                </div>
+
+                <!-- AR SECTION -->
+                <div class="ar-section">
+                    <h3>🔥 Lihat di Dunia Nyata (AR)</h3>
+                    <div class="ar-info">
+                        ℹ️ Gunakan kamera ponselmu untuk melihat model 3D di ruanganmu. Tombol AR hanya tersedia di perangkat mobile yang mendukung.
+                    </div>
+                    <div class="ar-button-group">
+                        <button onclick="loadARModel('solid')">📱 AR - Mode Solid</button>
+                        <button onclick="loadARModel('wire')">📱 AR - Tampilkan Rusuk</button>
+                    </div>
+                </div>
+
+                <!-- VIDEO SECTION -->
+                <div class="section">
+                    <div class="section-title">🎬 Video Pembelajaran</div>
+                    <div class="video-container" id="videoContainer">
+                        <video id="videoPlayer" controls>
+                            <track kind="captions" srclang="id" label="Bahasa Indonesia">
+                            <p>Browser Anda tidak mendukung video HTML5. Silakan update browser.</p>
+                        </video>
+                    </div>
+                    <div class="video-controls-info">
+                        💡 <strong>Tips:</strong> Putar video dengan kecepatan normal. Subtitle otomatis tersedia jika disediakan dalam file VTT.
+                    </div>
+                </div>
+
+                <!-- QUIZ SECTION -->
+                <div class="section">
+                    <div class="section-title">✏️ Kuis Interaktif</div>
+                    <div class="quiz-container" id="quizContainer">
+                        <!-- Diisi oleh JavaScript -->
+                    </div>
+                </div>
+
+                <!-- NAVIGATION -->
+                <div class="nav-buttons">
+                    <button onclick="previousShape()">← Sebelumnya</button>
+                    <button onclick="showHome(event)">🏠 Beranda</button>
+                    <button onclick="nextShape()">Selanjutnya →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN MODAL -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAdmin()">&times;</span>
+            <h2>Panel Admin</h2>
+            <p style="margin-bottom: 1rem; color: #666;">Masukkan password untuk mengakses panel admin.</p>
+            <input type="password" id="adminPassword" placeholder="Password" style="width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; margin-bottom: 1rem;">
+            <button onclick="authenticateAdmin()" style="width: 100%;">Masuk</button>
+            <div id="adminPanel" style="display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #ddd;">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Upload Konten</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">
+                    ℹ️ Folder terstruktur di backend: <br>
+                    <code>/assets/models/{shapeName}_wire.glb</code><br>
+                    <code>/assets/models/{shapeName}_solid.glb</code><br>
+                    <code>/assets/videos/{shapeName}.mp4</code>
+                </p>
+                <p style="color: #999; font-size: 0.85rem;">
+                    Petunjuk: Upload file ke folder yang sesuai di server. Pastikan naming convention diikuti.
+                </p>
+                <button onclick="testAdmin()" style="width: 100%; margin-top: 1rem;">Test Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AR NOT SUPPORTED MODAL -->
+    <div id="arNotSupportedModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeARModal()">&times;</span>
+            <h2>AR Tidak Didukung</h2>
+            <p style="margin-bottom: 1rem;">Perangat Anda mungkin tidak mendukung mode AR. Berikut cara mengaktifkan:</p>
+            <h4 style="color: #667eea; margin-top: 1.5rem;">📱 Android:</h4>
+            <ul style="margin-left: 1.5rem; color: #666; line-height: 1.8;">
+                <li>Gunakan browser Google Chrome atau Firefox terbaru</li>
+                <li>Pastikan Google Play Services untuk AR Core sudah terinstall</li>
+                <li>Ijinkan akses kamera</li>
+            </ul>
+            <h4 style="color: #667eea; margin-top: 1.5rem;">🍎 iOS:</h4>
+            <ul style="margin-left: 1.5rem; color: #666; line-height: 1.8;">
+                <li>Gunakan Safari terbaru (iOS 15+)</li>
+                <li>Pastikan perangat mendukung ARKit (iPhone 6s atau lebih baru)</li>
+                <li>Ijinkan akses kamera</li>
+            </ul>
+            <h4 style="color: #667eea; margin-top: 1.5rem;">💻 Desktop:</h4>
+            <p style="color: #666;">AR tidak tersedia di desktop. Gunakan fitur 3D viewer di atas untuk eksplorasi interaktif.</p>
+            <button onclick="closeARModal()" style="width: 100%; margin-top: 1.5rem;">Tutup</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>📚 Platform Pembelajaran Interaktif Bangun Ruang untuk Siswa SMP</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">
+            💡 Tips: Gunakan di perangat mobile untuk pengalaman AR terbaik. | 
+            <a href="#">Dokumentasi</a>
+        </p>
+    </footer>
+
+    <script>
+        // =============== DATA STRUKTUR ===============
+        const shapes = [
+            {
+                id: 'kubus',
+                name: 'Kubus',
+                emoji: '⬜',
+                desc: 'Kubus adalah bangun ruang yang memiliki 6 sisi berbentuk persegi, 12 rusuk yang sama panjang, dan 8 titik sudut. Semua sudutnya adalah sudut siku-siku (90°).',
+                icon: '🟦',
+                quiz: [
+                    {
+                        q: 'Berapa banyak sisi kubus?',
+                        opts: ['4', '6', '8', '10'],
+                        ans: 1,
+                        exp: 'Kubus memiliki 6 sisi persegi yang sama besar.'
+                    },
+                    {
+                        q: 'Berapa banyak rusuk kubus?',
+                        opts: ['8', '10', '12', '14'],
+                        ans: 2,
+                        exp: 'Kubus memiliki 12 rusuk dengan panjang yang sama.'
+                    },
+                    {
+                        q: 'Kubus memiliki berapa titik sudut?',
+                        opts: ['6', '8', '10', '12'],
+                        ans: 1,
+                        exp: 'Kubus memiliki 8 titik sudut.'
+                    },
+                    {
+                        q: 'Semua sisi kubus berbentuk apa?',
+                        opts: ['Segitiga', 'Persegi', 'Persegi Panjang', 'Lingkaran'],
+                        ans: 1,
+                        exp: 'Semua sisi kubus berbentuk persegi yang sama besar.'
+                    }
+                ]
+            },
+            {
+                id: 'balok',
+                name: 'Balok',
+                emoji: '📦',
+                desc: 'Balok (Prisma Persegi Panjang) memiliki 6 sisi berbentuk persegi panjang, 12 rusuk, dan 8 titik sudut. Sisi yang berhadapan memiliki ukuran yang sama.',
+                icon: '📦',
+                quiz: [
+                    {
+                        q: 'Perbedaan utama balok dengan kubus adalah?',
+                        opts: ['Balok punya lebih banyak rusuk', 'Balok punya sisi berbentuk persegi panjang, bukan persegi', 'Balok hanya punya 4 sisi', 'Balok punya 10 rusuk'],
+                        ans: 1,
+                        exp: 'Balok memiliki sisi berupa persegi panjang, sementara kubus punya sisi persegi.'
+                    },
+                    {
+                        q: 'Balok memiliki berapa sisi?',
+                        opts: ['4', '6', '8', '12'],
+                        ans: 1,
+                        exp: 'Balok memiliki 6 sisi persegi panjang.'
+                    }
+                ]
+            },
+            {
+                id: 'prisma_segitiga',
+                name: 'Prisma Segitiga',
+                emoji: '🔺',
+                desc: 'Prisma segitiga memiliki 2 sisi berbentuk segitiga yang sejajar, 3 sisi persegi panjang, 9 rusuk, dan 6 titik sudut.',
+                icon: '▲',
+                quiz: [
+                    {
+                        q: 'Berapa banyak sisi pada prisma segitiga?',
+                        opts: ['3', '4', '5', '6'],
+                        ans: 2,
+                        exp: 'Prisma segitiga memiliki 5 sisi: 2 segitiga dan 3 persegi panjang.'
+                    },
+                    {
+                        q: 'Berapa banyak titik sudut prisma segitiga?',
+                        opts: ['4', '5', '6', '8'],
+                        ans: 2,
+                        exp: 'Prisma segitiga memiliki 6 titik sudut.'
+                    }
+                ]
+            },
+            {
+                id: 'limas_segiempat',
+                name: 'Limas Segiempat',
+                emoji: '🔺',
+                desc: 'Limas segiempat memiliki 1 sisi alas berbentuk segiempat dan 4 sisi segitiga yang bertemu di satu titik puncak. Memiliki 8 rusuk dan 5 titik sudut.',
+                icon: '🏔️',
+                quiz: [
+                    {
+                        q: 'Berapa banyak sisi limas segiempat?',
+                        opts: ['4', '5', '6', '8'],
+                        ans: 1,
+                        exp: 'Limas segiempat memiliki 5 sisi: 1 persegi dan 4 segitiga.'
+                    },
+                    {
+                        q: 'Berapa banyak titik sudut limas segiempat?',
+                        opts: ['4', '5', '6', '8'],
+                        ans: 1,
+                        exp: 'Limas segiempat memiliki 5 titik sudut.'
+                    }
+                ]
+            },
+            {
+                id: 'tabung',
+                name: 'Tabung',
+                emoji: '🥫',
+                desc: 'Tabung adalah bangun ruang dengan 2 sisi berbentuk lingkaran sejajar (atas & bawah) dan 1 sisi lengkung. Memiliki 2 rusuk lingkar dan tidak memiliki titik sudut.',
+                icon: '🥫',
+                quiz: [
+                    {
+                        q: 'Berapa banyak sisi tabung?',
+                        opts: ['1', '2', '3', '4'],
+                        ans: 2,
+                        exp: 'Tabung memiliki 3 sisi: 2 lingkaran dan 1 sisi lengkung.'
+                    },
+                    {
+                        q: 'Berapa banyak titik sudut tabung?',
+                        opts: ['0', '2', '4', '6'],
+                        ans: 0,
+                        exp: 'Tabung tidak memiliki titik sudut.'
+                    }
+                ]
+            },
+            {
+                id: 'kerucut',
+                name: 'Kerucut',
+                emoji: '🍦',
+                desc: 'Kerucut adalah bangun ruang dengan 1 sisi alas berbentuk lingkaran dan 1 sisi lengkung yang bertemu di titik puncak. Memiliki 1 rusuk lingkar dan 1 titik sudut (puncak).',
+                icon: '🍦',
+                quiz: [
+                    {
+                        q: 'Berapa banyak sisi kerucut?',
+                        opts: ['1', '2', '3', '4'],
+                        ans: 1,
+                        exp: 'Kerucut memiliki 2 sisi: 1 lingkaran dan 1 sisi lengkung.'
+                    },
+                    {
+                        q: 'Berapa banyak titik sudut kerucut?',
+                        opts: ['0', '1', '2', '3'],
+                        ans: 1,
+                        exp: 'Kerucut memiliki 1 titik sudut di puncaknya.'
+                    }
+                ]
+            },
+            {
+                id: 'bola',
+                name: 'Bola',
+                emoji: '🔮',
+                desc: 'Bola adalah bangun ruang yang terdiri dari 1 sisi lengkung sempurna. Semua titik di permukaan bola berjarak sama dari pusat. Tidak memiliki rusuk atau titik sudut.',
+                icon: '🔮',
+                quiz: [
+                    {
+                        q: 'Berapa banyak sisi bola?',
+                        opts: ['0', '1', '2', '3'],
+                        ans: 1,
+                        exp: 'Bola memiliki 1 sisi lengkung sempurna.'
+                    },
+                    {
+                        q: 'Bola memiliki berapa rusuk dan titik sudut?',
+                        opts: ['Masing-masing 1', 'Masing-masing 0', 'Rusuk 1, Titik sudut 0', 'Rusuk 0, Titik sudut 1'],
+                        ans: 1,
+                        exp: 'Bola tidak memiliki rusuk atau titik sudut.'
+                    }
+                ]
+            }
+        ];
+
+        // =============== STATE MANAGEMENT ===============
+        let currentShapeIndex = 0;
+        let wireframeMode = false;
+        let autoRotateMode = false;
+        let quizAnswers = {};
+        let quizSubmitted = false;
+
+        // =============== INITIALIZE ===============
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            renderShapeGrid();
+            loadProgress();
+            showHome();
+            setupThreeJS();
+        }
+
+        // =============== HOME PAGE ===============
+        function renderShapeGrid() {
+            const grid = document.getElementById('shapesGrid');
+            grid.innerHTML = shapes.map((shape, idx) => `
+                <div class="shape-card" onclick="selectShape(${idx})">
+                    <div class="emoji">${shape.emoji}</div>
+                    <h3>${shape.name}</h3>
+                    <p>${shape.desc.substring(0, 60)}...</p>
+                    <div style="margin-top: 1rem; font-size: 0.85rem; color: #999;">
+                        ${isShapeCompleted(shape.id) ? '✅ Selesai' : '⏱️ Belum'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showHome(e) {
+            if (e) e.preventDefault();
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('bangunPage').classList.remove('active');
+            updateProgressDisplay();
+        }
+
+        // =============== BANGUN PAGE ===============
+        function selectShape(idx) {
+            currentShapeIndex = idx;
+            const shape = shapes[idx];
+            
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('bangunPage').classList.add('active');
+            
+            document.getElementById('bangunTitle').textContent = shape.name;
+            document.getElementById('bangunDesc').textContent = shape.desc;
+            
+            wireframeMode = false;
+            autoRotateMode = false;
+            quizAnswers = {};
+            quizSubmitted = false;
+            
+            updateViewerButtons();
+            renderQuiz();
+            loadVideo(shape.id);
+            loadModel(shape.id);
+        }
+
+        function nextShape() {
+            if (currentShapeIndex < shapes.length - 1) {
+                selectShape(currentShapeIndex + 1);
+            } else {
+                alert('Ini sudah bangun ruang terakhir!');
+            }
+        }
+
+        function previousShape() {
+            if (currentShapeIndex > 0) {
+                selectShape(currentShapeIndex - 1);
+            } else {
+                alert('Ini sudah bangun ruang pertama!');
+            }
+        }
+
+        // =============== THREE.JS SETUP ===============
+        let scene, camera, renderer, model;
+
+        function setupThreeJS() {
+            const canvas = document.getElementById('canvas');
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f4ff);
+
+            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.z = 3;
+
+            renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            // Lighting
+            const light1 = new THREE.DirectionalLight(0xffffff, 0.8);
+            light1.position.set(5, 5, 5);
+            scene.add(light1);
+
+            const light2 = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(light2);
+
+            // Create default cube
+            createDefaultCube();
+            animate();
+        }
+
+        function createDefaultCube() {
+            if (model) scene.remove(model);
+            
+            const geometry = new THREE.BoxGeometry(2, 2, 2);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x667eea,
+                shininess: 100
+            });
+            model = new THREE.Mesh(geometry, material);
+            scene.add(model);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (model && autoRotateMode) {
+                model.rotation.x += 0.005;
+                model.rotation.y += 0.005;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        function loadModel(shapeId) {
+            // Load GLB model - fallback ke default jika belum ada file
+            const modelPath = `/assets/models/${shapeId}_solid.glb`;
+            
+            // Untuk demo, gunakan default shapes jika file tidak ada
+            createShapeGeometry(shapeId, false);
+        }
+
+        function createShapeGeometry(shapeId, wireframe = false) {
+            if (model) scene.remove(model);
+
+            let geometry;
+            const materialColor = wireframe ? 0x667eea : 0x667eea;
+            const material = wireframe
+                ? new THREE.LineBasicMaterial({ color: 0x333333, linewidth: 2 })
+                : new THREE.MeshPhongMaterial({ color: materialColor, shininess: 100 });
+
+            switch (shapeId) {
+                case 'kubus':
+                    geometry = new THREE.BoxGeometry(2, 2, 2);
+                    model = wireframe 
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                case 'balok':
+                    geometry = new THREE.BoxGeometry(3, 2, 1.5);
+                    model = wireframe
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                case 'prisma_segitiga':
+                    geometry = new THREE.ConeGeometry(2, 3, 3);
+                    model = wireframe
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                case 'limas_segiempat':
+                    geometry = new THREE.ConeGeometry(2, 3, 4);
+                    model = wireframe
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                case 'tabung':
+                    geometry = new THREE.CylinderGeometry(1.5, 1.5, 2.5, 32);
+                    model = wireframe
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                case 'kerucut':
+                    geometry = new THREE.ConeGeometry(1.5, 3, 32);
+                    model = wireframe
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                case 'bola':
+                    geometry = new THREE.SphereGeometry(1.5, 32, 32);
+                    model = wireframe
+                        ? new THREE.LineSegments(new THREE.EdgesGeometry(geometry), material)
+                        : new THREE.Mesh(geometry, material);
+                    break;
+                default:
+                    geometry = new THREE.BoxGeometry(2, 2, 2);
+                    model = new THREE.Mesh(geometry, material);
+            }
+
+            scene.add(model);
+        }
+
+        function toggleWireframe() {
+            wireframeMode = !wireframeMode;
+            const shape = shapes[currentShapeIndex];
+            createShapeGeometry(shape.id, wireframeMode);
+            updateViewerButtons();
+        }
+
+        function autoRotate() {
+            autoRotateMode = !autoRotateMode;
+            updateViewerButtons();
+        }
+
+        function resetViewer() {
+            autoRotateMode = false;
+            wireframeMode = false;
+            if (model) model.rotation.set(0, 0, 0);
+            updateViewerButtons();
+            const shape = shapes[currentShapeIndex];
+            createShapeGeometry(shape.id, false);
+        }
+
+        function updateViewerButtons() {
+            document.getElementById('wireframeToggle').classList.toggle('active', wireframeMode);
+            document.getElementById('rotateToggle').classList.toggle('active', autoRotateMode);
+        }
+
+        // Handle canvas resize
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('canvas');
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        });
+
+        // =============== VIDEO ===============
+        function loadVideo(shapeId) {
+            const video = document.getElementById('videoPlayer');
+            video.src = `/assets/videos/${shapeId}.mp4`;
+            
+            // Load captions jika ada
+            const track = video.querySelector('track');
+            track.src = `/assets/videos/${shapeId}.vtt`;
+        }
+
+        // =============== QUIZ ===============
+        function renderQuiz() {
+            const shape = shapes[currentShapeIndex];
+            const container = document.getElementById('quizContainer');
+            
+            if (!shape.quiz || shape.quiz.length === 0) {
+                container.innerHTML = '<p style="color: #999;">Kuis untuk topik ini sedang disiapkan.</p>';
+                return;
+            }
+
+            const progress = (Object.keys(quizAnswers).length / shape.quiz.length) * 100;
+
+            let html = `
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar" style="width: ${progress}%"></div>
+                </div>
+                <div style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Progress: <strong>${Object.keys(quizAnswers).length}/${shape.quiz.length}</strong> soal dijawab
+                </div>
+            `;
+
+            shape.quiz.forEach((q, idx) => {
+                const answered = quizAnswers[idx] !== undefined;
+                html += `
+                    <div class="quiz-question" data-q="${idx}">
+                        <h4>${idx + 1}. ${q.q}</h4>
+                        <div class="quiz-options">
+                            ${q.opts.map((opt, optIdx) => {
+                                let optClass = '';
+                                if (quizSubmitted && answered) {
+                                    optClass = optIdx === q.ans 
+                                        ? 'correct' 
+                                        : (optIdx === quizAnswers[idx] ? 'incorrect' : '');
+                                }
+                                return `
+                                    <label class="quiz-option ${optClass}">
+                                        <input type="radio" name="q${idx}" value="${optIdx}" 
+                                            ${answered && quizAnswers[idx] == optIdx ? 'checked' : ''}
+                                            onchange="selectAnswer(${idx}, ${optIdx})" ${quizSubmitted ? 'disabled' : ''}>
+                                        <span>${opt}</span>
+                                    </label>
+                                `;
+                            }).join('')}
+                        </div>
+                        ${quizSubmitted && answered ? `
+                            <div class="quiz-feedback show ${quizAnswers[idx] === q.ans ? 'correct' : 'incorrect'}">
+                                <strong>${quizAnswers[idx] === q.ans ? '✅ Benar!' : '❌ Salah!'}</strong>
+                                <p style="margin-top: 0.5rem;">${q.exp}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            if (!quizSubmitted) {
+                html += `
+                    <button onclick="submitQuiz()" style="width: 100%; margin-top: 1rem; background: #4caf50;">
+                        📤 Kirim Jawaban
+                    </button>
+                `;
+            } else {
+                const score = calculateScore();
+                html += `
+                    <div class="quiz-result">
+                        <h3>Hasil Kuis</h3>
+                        <div class="score-badge">${score}%</div>
+                        <p style="color: #666; margin-bottom: 1rem;">
+                            ${score >= 80 ? '🎉 Luar biasa!' : score >= 60 ? '👍 Bagus!' : '💪 Terus belajar!'}
+                        </p>
+                        <button onclick="resetQuiz()" style="width: 100%;">🔄 Ulang Kuis</button>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function selectAnswer(qIdx, optIdx) {
+            quizAnswers[qIdx] = optIdx;
+            renderQuiz();
+        }
+
+        function submitQuiz() {
+            const shape = shapes[currentShapeIndex];
+            if (Object.keys(quizAnswers).length !== shape.quiz.length) {
+                alert('Jawab semua soal terlebih dahulu!');
+                return;
+            }
+            quizSubmitted = true;
+            saveProgress(shape.id, true);
+            updateProgressDisplay();
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            quizAnswers = {};
+            quizSubmitted = false;
+            renderQuiz();
+        }
+
+        function calculateScore() {
+            const shape = shapes[currentShapeIndex];
+            let correct = 0;
+            shape.quiz.forEach((q, idx) => {
+                if (quizAnswers[idx] === q.ans) correct++;
+            });
+            return Math.round((correct / shape.quiz.length) * 100);
+        }
+
+        // =============== AR ===============
+        function loadARModel(type) {
+            const shape = shapes[currentShapeIndex];
+            const modelPath = `/assets/models/${shape.id}_${type}.glb`;
+            
+            // Check if device supports AR
+            if (!navigator.xr || !('isSessionSupported' in navigator.xr)) {
+                document.getElementById('arNotSupportedModal').classList.add('show');
+                return;
+            }
+
+            alert(`AR Mode: ${type}\nModel akan dimuat dari: ${modelPath}`);
+        }
+
+        function closeARModal() {
+            document.getElementById('arNotSupportedModal').classList.remove('show');
+        }
+
+        // =============== ADMIN ===============
+        function showAdmin(e) {
+            e.preventDefault();
+            document.getElementById('adminModal').classList.add('show');
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminModal').classList.remove('show');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        function authenticateAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            // Simple password check - ganti dengan backend auth untuk production
+            if (password === 'admin123') {
+                document.getElementById('adminPanel').style.display = 'block';
+            } else {
+                alert('Password salah!');
+            }
+        }
+
+        function testAdmin() {
+            alert('Panel Admin:\n\nUpload file ke folder sesuai struktur:\n\n/assets/models/\n  - kubus_wire.glb\n  - kubus_solid.glb\n  - balok_wire.glb\n  - dst...\n\n/assets/videos/\n  - kubus.mp4\n  - balok.mp4\n  - dst...\n\n/assets/videos/\n  - kubus.vtt (subtitle, opsional)\n  - dst...');
+        }
+
+        // =============== PROGRESS TRACKING ===============
+        function saveProgress(shapeId, completed) {
+            let progress = JSON.parse(localStorage.getItem('shapeProgress')) || {};
+            if (!progress[shapeId]) {
+                progress[shapeId] = {};
+            }
+            progress[shapeId].completed = completed;
+            progress[shapeId].timestamp = new Date().toISOString();
+            localStorage.setItem('shapeProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            return JSON.parse(localStorage.getItem('shapeProgress')) || {};
+        }
+
+        function isShapeCompleted(shapeId) {
+            const progress = loadProgress();
+            return progress[shapeId] && progress[shapeId].completed;
+        }
+
+        function updateProgressDisplay() {
+            const progress = loadProgress();
+            const completed = Object.values(progress).filter(p => p.completed).length;
+            const total = shapes.length;
+            const percentage = (completed / total) * 100;
+
+            document.getElementById('overallProgress').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed}/${total} topik selesai`;
+        }
+
+        // =============== MODAL UTILITIES ===============
+        window.onclick = (event) => {
+            const adminModal = document.getElementById('adminModal');
+            const arModal = document.getElementById('arNotSupportedModal');
+            
+            if (event.target === adminModal) {
+                adminModal.classList.remove('show');
+            }
+            if (event.target === arModal) {
+                arModal.classList.remove('show');
+            }
+        };
+    </script>
+</body>
+</html>
