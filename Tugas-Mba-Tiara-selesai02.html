@@ -760,10 +760,10 @@
         <div class="content-box">
             <!-- Gambar Bentuk Bangun Ruang -->
             <div class="materi-section">
-                <h2>Gambar Bentuk Bangun Ruang</h2>
+                <h2>Gambar Bentuk <span id="bentuk-title">Bangun Ruang</span></h2>
                 <div class="materi-image" id="gambar-bentuk">
-                    <!-- GAMBAR BANGUN RUANG DITAMPILKAN DI SINI -->
-                    <p>Gambar Bangun Ruang</p>
+                    <!-- GAMBAR DITAMPILKAN DI SINI -->
+                    <p>Gambar</p>
                 </div>
             </div>
 
@@ -801,25 +801,25 @@
 
             <!-- Jaring-jaring Bangun Ruang -->
             <div class="materi-section">
-                <h2>Jaring-jaring Bangun Ruang</h2>
+                <h2>Jaring-jaring <span id="jaring-title">Bangun Ruang</span></h2>
                 <div class="materi-image" id="gambar-jaring">
-                    <!-- GAMBAR JARING-JARING 1 DITAMPILKAN DI SINI -->
+                    <!-- GAMBAR JARING-JARING 1 -->
                     <p>Jaring-jaring</p>
                 </div>
                 <div class="materi-image" id="gambar-jaring2">
-                    <!-- GAMBAR JARING-JARING 2 DITAMPILKAN DI SINI -->
+                    <!-- GAMBAR JARING-JARING 2 -->
                     <p>Jaring-jaring</p>
                 </div>
                 <div class="materi-image" id="gambar-jaring3">
-                    <!-- GAMBAR JARING-JARING 3 DITAMPILKAN DI SINI -->
+                    <!-- GAMBAR JARING-JARING 3 -->
                     <p>Jaring-jaring</p>
                 </div>
                 <div class="materi-image" id="gambar-jaring4">
-                    <!-- GAMBAR JARING-JARING 4 DITAMPILKAN DI SINI -->
+                    <!-- GAMBAR JARING-JARING 4 -->
                     <p>Jaring-jaring</p>
                 </div>
                 <div class="materi-image" id="gambar-tambahan">
-                    <!-- GAMBAR TAMBAHAN DITAMPILKAN DI SINI -->
+                    <!-- GAMBAR TAMBAHAN -->
                     <p>Gambar Tambahan</p>
                 </div>
             </div>
@@ -1302,6 +1302,8 @@
             document.getElementById('materi-title').innerHTML = data.title;
             document.getElementById('materi-deskripsi').innerHTML = data.deskripsi || '';
             document.getElementById('bangun-name').textContent = data.title;
+            document.getElementById('bentuk-title').textContent = data.title;
+            document.getElementById('jaring-title').textContent = data.title;
             document.getElementById('unsur-content').innerHTML = data.unsur;
             document.getElementById('rumus-luas').innerHTML = data.rumusLuas;
             document.getElementById('contoh-luas').innerHTML = data.contohLuas;
