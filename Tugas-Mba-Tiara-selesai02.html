@@ -1017,6 +1017,10 @@
             prisma: {
                 title: "Prisma Segi-n",
                 deskripsi: "n = banyak sisi bangun datar yang menjadi alas prisma",
+                deskripsiJaring: "prisma segitiga",
+                deskripsiJaring2: "prisma segitiga",
+                deskripsiJaring3: "prisma segilima",
+                deskripsiJaring4: "prisma segilima",
                 unsur: `
                     <div class="rumus-box">
                         <h4>Prisma segi-n memiliki unsur-unsur sebagai berikut:</h4>
@@ -1086,6 +1090,10 @@
             limas: {
                 title: "Limas Segi-n",
                 deskripsi: "n = banyak sisi bangun datar yang menjadi alas limas",
+                deskripsiJaring: "limas segiempat",
+                deskripsiJaring2: "limas segiempat",
+                deskripsiJaring3: "limas segilima",
+                deskripsiJaring4: "limas segitiga",
                 unsur: `
                     <div class="rumus-box">
                         <h4>- Limas segi-n memiliki unsur-unsur sebagai berikut:</h4>
@@ -1147,9 +1155,9 @@
                 arTransparent: "./Aset/limas segiempat transparan.glb",
                 gambar: "./aset_gambar/gambar_limas.png",
                 gambarJaring: "./aset_gambar/gambar_jaring_jaring_limas_1.png",
-                gambarJaring2: "./aset_gambar/gambar_jaring_jaring_limas_2.png",
+                gambarJaring2: "./aset_gambar/gambar_jaring_jaring_limas_4.png",
                 gambarJaring3: "./aset_gambar/gambar_jaring_jaring_limas_3.png",
-                gambarJaring4: "./aset_gambar/gambar_jaring_jaring_limas_4.png",
+                gambarJaring4: "./aset_gambar/gambar_jaring_jaring_limas_2.png",
                 animasiJaring: "./Aset animasi/animasi jaring jaring limas.glb"
             },
             };
@@ -1332,7 +1340,8 @@
             if (data.gambarJaring) {
                 const gambarJaringDiv = document.getElementById('gambar-jaring');
                 if (gambarJaringDiv) {
-                    gambarJaringDiv.innerHTML = `<img src="${data.gambarJaring}" alt="Jaring-jaring ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
+                    let deskripsi = data.deskripsiJaring ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring}</p>` : '';
+                    gambarJaringDiv.innerHTML = `<img src="${data.gambarJaring}" alt="Jaring-jaring ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
                 }
             }
             
@@ -1340,7 +1349,8 @@
             if (data.gambarJaring2) {
                 const gambarJaring2Div = document.getElementById('gambar-jaring2');
                 if (gambarJaring2Div) {
-                    gambarJaring2Div.innerHTML = `<img src="${data.gambarJaring2}" alt="Jaring-jaring 2 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
+                    let deskripsi = data.deskripsiJaring2 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring2}</p>` : '';
+                    gambarJaring2Div.innerHTML = `<img src="${data.gambarJaring2}" alt="Jaring-jaring 2 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
                 }
             }
             
@@ -1348,7 +1358,8 @@
             if (data.gambarJaring3) {
                 const gambarJaring3Div = document.getElementById('gambar-jaring3');
                 if (gambarJaring3Div) {
-                    gambarJaring3Div.innerHTML = `<img src="${data.gambarJaring3}" alt="Jaring-jaring 3 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
+                    let deskripsi = data.deskripsiJaring3 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring3}</p>` : '';
+                    gambarJaring3Div.innerHTML = `<img src="${data.gambarJaring3}" alt="Jaring-jaring 3 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
                 }
             }
             
@@ -1356,15 +1367,19 @@
             if (data.gambarJaring4) {
                 const gambarJaring4Div = document.getElementById('gambar-jaring4');
                 if (gambarJaring4Div) {
-                    gambarJaring4Div.innerHTML = `<img src="${data.gambarJaring4}" alt="Jaring-jaring 4 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
+                    let deskripsi = data.deskripsiJaring4 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring4}</p>` : '';
+                    gambarJaring4Div.innerHTML = `<img src="${data.gambarJaring4}" alt="Jaring-jaring 4 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
                 }
             }
 
-            // Tampilkan gambar tambahan (khusus untuk kubus)
+            // Tampilkan gambar tambahan (khusus untuk kubus dan limas)
             const gambarTambahanDiv = document.getElementById('gambar-tambahan');
             if (gambarTambahanDiv) {
                 if (data.gambarTambahan) {
                     gambarTambahanDiv.innerHTML = `<img src="${data.gambarTambahan}" alt="Gambar Tambahan ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
+                } else if (data.gambarJaring5) {
+                    let deskripsi = data.deskripsiJaring5 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring5}</p>` : '';
+                    gambarTambahanDiv.innerHTML = `<img src="${data.gambarJaring5}" alt="Jaring-jaring 5 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
                 } else {
                     gambarTambahanDiv.style.display = 'none';
                 }
