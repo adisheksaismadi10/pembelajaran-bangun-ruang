@@ -65,21 +65,19 @@
         margin-top: 0;
     }
 
-    /* ── Foto Profil (lingkaran, melayang di tengah) ── */
+    /* ── Foto Profil (lingkaran pengembang) ── */
     .profil-avatar-wrap {
-        position: absolute;
-        bottom: -54px;
-        left: 50%;
-        transform: translateX(-50%);
+        margin-bottom: 18px;
     }
 
     .profil-avatar-ring {
-        width: 112px;
-        height: 112px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         background: linear-gradient(135deg, #FFD700, #FFA500);
         padding: 4px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        margin: 0 auto;
     }
 
     .profile-img {
@@ -94,8 +92,75 @@
 
     /* ── Body Kartu ── */
     .profil-card-body {
-        padding: 68px 30px 32px;
+        padding: 40px 30px 32px;
         text-align: center;
+    }
+
+    /* Container untuk dua profil (pengembang + dosen) */
+    .profil-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+        margin-bottom: 24px;
+    }
+
+    /* Section profil pengembang */
+    .profil-section {
+        text-align: center;
+    }
+
+    /* Section dosen pembimbing */
+    .profil-section.dosen {
+        padding-left: 20px;
+        border-left: 2px solid #e8d5b7;
+    }
+
+    /* Avatar wrapper untuk dosen */
+    .dosen-avatar-wrap {
+        margin-bottom: 18px;
+    }
+
+    .dosen-avatar-ring {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #FF6B9D, #FFC75F);
+        padding: 4px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        margin: 0 auto;
+    }
+
+    .dosen-avatar-ring .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        background: #f0d0f8;
+    }
+
+    /* Nama dosen */
+    .dosen-name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #3a2d6e;
+        margin-bottom: 6px;
+        line-height: 1.25;
+    }
+
+    /* Badge dosen pembimbing */
+    .dosen-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #f0eafa, #e4d8f7);
+        border: 2px solid #c9b8f0;
+        color: #5a3fa0;
+        font-size: 0.8rem;
+        font-weight: bold;
+        padding: 4px 12px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
     }
 
     /* Nama pengembang */
@@ -103,8 +168,17 @@
         font-size: 1.55rem;
         font-weight: bold;
         color: #3a2d6e;
-        margin-bottom: 4px;
+        margin-bottom: 8px;
         line-height: 1.25;
+    }
+
+    /* Tanggal lahir pengembang */
+    .profil-birth-date {
+        font-size: 0.92rem;
+        color: #7a6b8f;
+        margin-bottom: 14px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
     }
 
     /* Peran / jabatan */
@@ -243,11 +317,25 @@
     }
 
     /* ── Responsive ── */
+    @media (max-width: 768px) {
+        .profil-container {
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .profil-section.dosen {
+            padding-left: 0;
+            border-left: none;
+        }
+    }
+
     @media (max-width: 480px) {
         #profil-page { padding: 30px 16px 50px; }
-        .profil-card-body { padding: 68px 20px 28px; }
+        .profil-card-body { padding: 40px 20px 28px; }
         .profil-name { font-size: 1.3rem; }
+        .dosen-name { font-size: 1.1rem; }
         .profil-back-btn { font-size: 0.95rem; padding: 13px 24px; }
+        .profil-container { gap: 20px; }
     }
 </style>
 
@@ -268,40 +356,34 @@
         <div class="profil-card-header">
             <div class="profil-badge">✦ Profil Pengembang ✦</div>
             <h2>Media Pembelajaran 3D Bangun Ruang</h2>
-
-            <!-- Foto profil melayang -->
-            <div class="profil-avatar-wrap">
-                <div class="profil-avatar-ring">
-                    <img src="foto-profil.png" class="profile-img" alt="Foto Profil Pengembang">
-                </div>
-            </div>
         </div>
 
         <!-- ── Body kartu ── -->
         <div class="profil-card-body">
 
-            <!-- Nama & Peran -->
-            <div class="profil-name">Tiara Lasangka</div>
-            <div class="profil-role">🎓 Universitas Muhammadiyah Jakarta</div>
-
-            <!-- Chip info -->
-            <div class="profil-info-row">
-                <div class="profil-info-chip">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                    </svg>
-                    Pendidikan
+            <!-- Container untuk dua profil -->
+            <div class="profil-container">
+                <!-- Profil Pengembang -->
+                <div class="profil-section">
+                    <div class="profil-avatar-wrap">
+                        <div class="profil-avatar-ring">
+                            <img src="foto-profil.png" class="profile-img" alt="Foto Profil Pengembang">
+                        </div>
+                    </div>
+                    <div class="profil-name">Tiara Lasangka</div>
+                    <div class="profil-birth-date">📅 15 Februari 2006</div>
+                    <div class="profil-role">🎓 Universitas Muhammadiyah Jakarta</div>
                 </div>
-                <div class="profil-info-chip">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="3" y1="9" x2="21" y2="9"/>
-                        <line x1="9" y1="21" x2="9" y2="9"/>
-                    </svg>
-                     Pendidikan Matematika
+
+                <!-- Profil Dosen Pembimbing -->
+                <div class="profil-section dosen">
+                    <div class="dosen-avatar-wrap">
+                        <div class="dosen-avatar-ring">
+                            <img src="foto-dosen.png" class="profile-img" alt="Foto Dosen Pembimbing">
+                        </div>
+                    </div>
+                    <div class="dosen-name">Nama Dosen</div>
+                    <div class="dosen-badge">— Dosen Pembimbing —</div>
                 </div>
             </div>
 
