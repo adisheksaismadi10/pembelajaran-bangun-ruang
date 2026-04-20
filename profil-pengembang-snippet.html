@@ -1,343 +1,364 @@
-<!-- ============================================================
-     HALAMAN PROFIL PENGEMBANG
-     Cara pakai (single-file):
-       1. Salin seluruh blok <style> ke dalam <style> utama proyek.
-       2. Salin seluruh blok <div id="profil-page"> ke dalam body,
-          sejajar dengan #home-page, #materi-page, dll.
-     ============================================================ -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengembang – 3D Bangun Ruang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<!-- ══════════════════════════════════════════
-     CSS TAMBAHAN — tempel di dalam <style> utama
-     ══════════════════════════════════════════ -->
-<style>
-    /* ── Profil Page Wrapper ── */
-    #profil-page {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px 20px 60px;
-    }
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5e6d3;
+            color: #333;
+            overflow-x: hidden;
+        }
 
-    /* ── Kartu Profil (gaya Kartu Tanda Pelajar) ── */
-    .profil-card {
-        background: #fffdf7;
-        border-radius: 28px;
-        border: 3px solid #e8d5b7;
-        box-shadow:
-            0 10px 40px rgba(102, 126, 234, 0.15),
-            0 2px 8px rgba(0, 0, 0, 0.08);
-        max-width: 500px;
-        width: 100%;
-        overflow: hidden;
-        animation: fadeIn 0.6s ease-in;
-        position: relative;
-    }
+        /* ── Dekorasi Alat Tulis ── */
+        .bg-decorations {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+        .decoration { position: absolute; opacity: 0.6; }
+        .pencil-left {
+            top: 10%; left: 2%; width: 80px; height: 300px;
+            background: linear-gradient(to bottom,#FFD700 0%,#FFD700 70%,#8B4513 70%,#8B4513 85%,#333 85%);
+            border-radius: 5px; transform: rotate(-15deg);
+        }
+        .ruler-right {
+            top: 15%; right: 3%; width: 60px; height: 250px;
+            background: linear-gradient(to right,#FF6B6B 0%,#FF6B6B 50%,#FFA07A 50%);
+            border: 2px solid #333; transform: rotate(20deg);
+        }
+        .book-left {
+            bottom: 15%; left: 1%; width: 100px; height: 80px;
+            background: #4ECDC4; border: 3px solid #333;
+            border-radius: 5px; transform: rotate(-10deg);
+        }
+        .calculator-right {
+            bottom: 20%; right: 2%; width: 90px; height: 120px;
+            background: #95E1D3; border: 3px solid #333;
+            border-radius: 8px; transform: rotate(15deg);
+        }
+        .eraser-top {
+            top: 40%; left: 5%; width: 70px; height: 40px;
+            background: #FF69B4; border-radius: 5px; transform: rotate(-25deg);
+        }
+        .compass-top {
+            top: 50%; right: 5%; width: 60px; height: 100px;
+            border-left: 3px solid #666; border-right: 3px solid #666;
+            transform: rotate(30deg);
+        }
 
-    /* Strip header kartu — gradien tema */
-    .profil-card-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 30px 24px 56px;
-        text-align: center;
-        position: relative;
-    }
+        /* ── Profil Page Wrapper ── */
+        #profil-page {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px 60px;
+        }
 
-    /* Label "Tim Pengembang" di pojok */
-    .profil-badge {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.22);
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        color: #fff;
-        font-size: 0.78rem;
-        font-weight: bold;
-        letter-spacing: 0.06em;
-        padding: 4px 14px;
-        border-radius: 50px;
-        margin-bottom: 16px;
-        text-transform: uppercase;
-    }
+        /* ── Kartu Profil ── */
+        .profil-card {
+            background: #fffdf7;
+            border-radius: 28px;
+            border: 3px solid #e8d5b7;
+            box-shadow:
+                0 10px 40px rgba(102, 126, 234, 0.15),
+                0 2px 8px rgba(0, 0, 0, 0.08);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-in;
+            position: relative;
+        }
 
-    .profil-card-header h2 {
-        color: #fff;
-        font-size: 0.95rem;
-        opacity: 0.85;
-        font-weight: normal;
-        margin-top: 0;
-    }
+        .profil-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 24px 56px;
+            text-align: center;
+            position: relative;
+        }
 
-    /* ── Foto Profil (lingkaran, melayang di tengah) ── */
-    .profil-avatar-wrap {
-        position: absolute;
-        bottom: -54px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+        .profil-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.22);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: bold;
+            letter-spacing: 0.06em;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
 
-    .profil-avatar-ring {
-        width: 112px;
-        height: 112px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        padding: 4px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-    }
+        .profil-card-header h2 {
+            color: #fff;
+            font-size: 0.95rem;
+            opacity: 0.85;
+            font-weight: normal;
+            margin-top: 0;
+        }
 
-    .profile-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        display: block;
-        background: #e0d0f0;
-        /* fallback warna jika foto belum ada */
-    }
+        .profil-avatar-wrap {
+            position: absolute;
+            bottom: -54px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-    /* ── Body Kartu ── */
-    .profil-card-body {
-        padding: 68px 30px 32px;
-        text-align: center;
-    }
+        .profil-avatar-ring {
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 4px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        }
 
-    /* Nama pengembang */
-    .profil-name {
-        font-size: 1.55rem;
-        font-weight: bold;
-        color: #3a2d6e;
-        margin-bottom: 4px;
-        line-height: 1.25;
-    }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: #e0d0f0;
+        }
 
-    /* Peran / jabatan */
-    .profil-role {
-        display: inline-block;
-        background: linear-gradient(135deg, #f0eafa, #e4d8f7);
-        border: 2px solid #c9b8f0;
-        color: #5a3fa0;
-        font-size: 0.88rem;
-        font-weight: bold;
-        padding: 5px 18px;
-        border-radius: 50px;
-        margin: 10px 0 22px;
-    }
+        .profil-card-body {
+            padding: 68px 30px 32px;
+            text-align: center;
+        }
 
-    /* Garis pemisah ala notebook */
-    .profil-divider {
-        border: none;
-        border-top: 2.5px dashed #e8d5b7;
-        margin: 0 0 22px;
-    }
+        .profil-name {
+            font-size: 1.55rem;
+            font-weight: bold;
+            color: #3a2d6e;
+            margin-bottom: 4px;
+            line-height: 1.25;
+        }
 
-    /* Bio / deskripsi */
-    .profil-bio {
-        font-size: 0.95rem;
-        color: #555;
-        line-height: 1.7;
-        text-align: left;
-        background: #f9f3e8;
-        border-radius: 16px;
-        border: 2px solid #e8d5b7;
-        padding: 16px 18px;
-        margin-bottom: 24px;
-        position: relative;
-        width: auto;
-        height: 400px;
-        box-sizing: border-box;
-    }
+        .profil-role {
+            display: inline-block;
+            background: linear-gradient(135deg, #f0eafa, #e4d8f7);
+            border: 2px solid #c9b8f0;
+            color: #5a3fa0;
+            font-size: 0.88rem;
+            font-weight: bold;
+            padding: 5px 18px;
+            border-radius: 50px;
+            margin: 10px 0 22px;
+        }
 
-    /* Tanda kutip dekoratif */
-    .profil-bio::before {
-        content: '\201C';
-        font-size: 3.5rem;
-        color: #c9b8f0;
-        position: absolute;
-        top: -10px;
-        left: 12px;
-        line-height: 1;
-        font-family: Georgia, serif;
-    }
+        .profil-divider {
+            border: none;
+            border-top: 2.5px dashed #e8d5b7;
+            margin: 0 0 22px;
+        }
 
-    .profil-bio p {
-        padding-left: 8px;
-    }
+        .profil-bio {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+            text-align: left;
+            background: #f9f3e8;
+            border-radius: 16px;
+            border: 2px solid #e8d5b7;
+            padding: 16px 18px;
+            margin-bottom: 24px;
+            position: relative;
+            width: auto;
+            box-sizing: border-box;
+        }
 
-    /* ── Info strip kecil (prodi, universitas) ── */
-    .profil-info-row {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 28px;
-    }
+        .profil-bio::before {
+            content: '\201C';
+            font-size: 3.5rem;
+            color: #c9b8f0;
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            line-height: 1;
+            font-family: Georgia, serif;
+        }
 
-    .profil-info-chip {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background: #fff;
-        border: 2px solid #e8d5b7;
-        border-radius: 50px;
-        padding: 6px 14px;
-        font-size: 0.82rem;
-        color: #666;
-        font-weight: bold;
-    }
+        .profil-bio p {
+            padding-left: 8px;
+        }
 
-    .profil-info-chip svg {
-        width: 15px;
-        height: 15px;
-        flex-shrink: 0;
-        color: #764ba2;
-    }
+        .profil-info-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
 
-    /* ── Tombol Kembali ── */
-    .profil-back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #fff;
-        border: none;
-        padding: 14px 36px;
-        border-radius: 50px;
-        font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
-        transition: all 0.3s ease;
-        width: 100%;
-        justify-content: center;
-    }
+        .profil-info-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff;
+            border: 2px solid #e8d5b7;
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            color: #666;
+            font-weight: bold;
+        }
 
-    .profil-back-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 28px rgba(102, 126, 234, 0.45);
-    }
+        .profil-info-chip svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            color: #764ba2;
+        }
 
-    .profil-back-btn:active { transform: scale(0.97); }
+        .profil-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
 
-    .profil-back-btn svg {
-        width: 18px;
-        height: 18px;
-    }
+        .profil-back-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 28px rgba(102, 126, 234, 0.45);
+        }
 
-    /* ── Dekorasi bintang kecil di kartu ── */
-    .profil-stars {
-        position: absolute;
-        top: 14px;
-        right: 18px;
-        display: flex;
-        gap: 4px;
-        opacity: 0.5;
-    }
+        .profil-back-btn:active { transform: scale(0.97); }
 
-    .profil-stars span {
-        font-size: 0.7rem;
-        color: #FFD700;
-    }
+        .profil-back-btn svg {
+            width: 18px;
+            height: 18px;
+        }
 
-    /* ── Animasi ── */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
+        .profil-stars {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            display: flex;
+            gap: 4px;
+            opacity: 0.5;
+        }
 
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-        #profil-page { padding: 30px 16px 50px; }
-        .profil-card-body { padding: 68px 20px 28px; }
-        .profil-name { font-size: 1.3rem; }
-        .profil-back-btn { font-size: 0.95rem; padding: 13px 24px; }
-    }
-</style>
+        .profil-stars span {
+            font-size: 0.7rem;
+            color: #FFD700;
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
 
-<!-- ══════════════════════════════════════════
-     HTML — tempel sejajar dengan #home-page
-     ══════════════════════════════════════════ -->
-<div id="profil-page" class="page">
+        @media (max-width: 480px) {
+            #profil-page { padding: 30px 16px 50px; }
+            .profil-card-body { padding: 68px 20px 28px; }
+            .profil-name { font-size: 1.3rem; }
+            .profil-back-btn { font-size: 0.95rem; padding: 13px 24px; }
+        }
+    </style>
+</head>
+<body>
 
-    <div class="profil-card">
+    <!-- Dekorasi Alat Tulis -->
+    <div class="bg-decorations">
+        <div class="decoration pencil-left"></div>
+        <div class="decoration ruler-right"></div>
+        <div class="decoration book-left"></div>
+        <div class="decoration calculator-right"></div>
+        <div class="decoration eraser-top"></div>
+        <div class="decoration compass-top"></div>
+    </div>
 
-        <!-- Bintang dekorasi pojok -->
-        <div class="profil-stars">
-            <span>★</span><span>★</span><span>★</span>
-        </div>
-
-        <!-- ── Header strip ungu ── -->
-        <div class="profil-card-header">
-            <div class="profil-badge">✦ Profil Pengembang ✦</div>
-            <h2>Media Pembelajaran 3D Bangun Ruang</h2>
-
-            <!-- Foto profil melayang -->
-            <div class="profil-avatar-wrap">
-                <div class="profil-avatar-ring">
-                    <img src="./aset_gambar/Cuplikan layar 2026-04-15 223750.png" class="profile-img" alt="Foto Profil Pengembang">
+    <div id="profil-page">
+        <div class="profil-card">
+            <div class="profil-stars">
+                <span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="profil-card-header">
+                <div class="profil-badge">✦ Profil Pengembang ✦</div>
+                <h2>Media Pembelajaran 3D Bangun Ruang</h2>
+                <div class="profil-avatar-wrap">
+                    <div class="profil-avatar-ring">
+                        <img src="./aset_gambar/Cuplikan layar 2026-04-15 223750.png" class="profile-img" alt="Foto Profil Pengembang">
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- ── Body kartu ── -->
-        <div class="profil-card-body">
-
-            <!-- Nama & Peran -->
-            <div class="profil-name">Tiara Lasangka</div>
-            <div class="profil-role">🎓 Universitas Muhammadiyah Jakarta</div>
-
-            <!-- Chip info -->
-            <div class="profil-info-row">
-                <div class="profil-info-chip">
+            <div class="profil-card-body">
+                <div class="profil-name">Tiara Lasangka</div>
+                <div class="profil-role">🎓 Universitas Muhammadiyah Jakarta</div>
+                <div class="profil-info-row">
+                    <div class="profil-info-chip">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                        Pendidikan
+                    </div>
+                    <div class="profil-info-chip">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                         Pendidikan Matematika
+                    </div>
+                </div>
+                <hr class="profil-divider">
+                <div class="profil-bio">
+                    <p>
+                        Haii, teman-teman! 👋 Perkenalkan, saya adalah pengembang media pembelajaran
+                        <strong>3D Bangun Ruang Interaktif</strong> ini.
+                    </p>
+                    <br>
+                    <p>
+                        Website ini dibuat dengan satu tujuan sederhana: supaya belajar bangun ruang
+                        jadi lebih <strong>seru, mudah, dan tidak membosankan</strong>! 🎉
+                        Dengan model 3D yang bisa diputar dan fitur AR, semoga materi Matematika
+                        terasa lebih nyata dan gampang dipahami.
+                    </p>
+                    <br>
+                    <p>
+                        Semangat belajarnya ya! Kalau ada yang bingung, jangan takut untuk
+                        mencoba fitur kuis berulang kali sampai paham. Kamu pasti bisa! 💪✨
+                    </p>
+                </div>
+                <button class="profil-back-btn" onclick="window.location.href='index.html'">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12 19 5 12 12 5"/>
                     </svg>
-                    Pendidikan
-                </div>
-                <div class="profil-info-chip">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="3" y1="9" x2="21" y2="9"/>
-                        <line x1="9" y1="21" x2="9" y2="9"/>
-                    </svg>
-                     Pendidikan Matematika
-                </div>
+                    Kembali ke Menu Utama
+                </button>
             </div>
-
-            <hr class="profil-divider">
-
-            <!-- Bio -->
-            <div class="profil-bio">
-                <p>
-                    Haii, teman-teman! 👋 Perkenalkan, saya adalah pengembang media pembelajaran
-                    <strong>3D Bangun Ruang Interaktif</strong> ini.
-                </p>
-                <br>
-                <p>
-                    Website ini dibuat dengan satu tujuan sederhana: supaya belajar bangun ruang
-                    jadi lebih <strong>seru, mudah, dan tidak membosankan</strong>! 🎉
-                    Dengan model 3D yang bisa diputar dan fitur AR, semoga materi Matematika
-                    terasa lebih nyata dan gampang dipahami.
-                </p>
-                <br>
-                <p>
-                    Semangat belajarnya ya! Kalau ada yang bingung, jangan takut untuk
-                    mencoba fitur kuis berulang kali sampai paham. Kamu pasti bisa! 💪✨
-                </p>
-            </div>
-
-            <!-- Tombol kembali — menggunakan showPage() sesuai proyek asli -->
-            <button class="profil-back-btn" onclick="showPage('home-page')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="19" y1="12" x2="5" y2="12"/>
-                    <polyline points="12 19 5 12 12 5"/>
-                </svg>
-                Kembali ke Menu Utama
-            </button>
-
-        </div><!-- /profil-card-body -->
-    </div><!-- /profil-card -->
-
-</div><!-- /profil-page -->
+        </div>
+    </div>
+</body>
+</html>
