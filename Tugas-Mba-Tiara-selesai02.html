@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,87 +15,10 @@
 
         body {
             font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5e6d3;
+            background: url("./aset_gambar/gambar_background.jpeg") no-repeat center center fixed;
+            background-size: cover;
             color: #333;
             overflow-x: hidden;
-        }
-
-        /* Background Decorations - Alat Tulis Theme */
-        .bg-decorations {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .decoration {
-            position: absolute;
-            opacity: 0.6;
-        }
-
-        .pencil-left {
-            top: 10%;
-            left: 2%;
-            width: 80px;
-            height: 300px;
-            background: linear-gradient(to bottom, #FFD700 0%, #FFD700 70%, #8B4513 70%, #8B4513 85%, #333 85%);
-            border-radius: 5px;
-            transform: rotate(-15deg);
-        }
-
-        .ruler-right {
-            top: 15%;
-            right: 3%;
-            width: 60px;
-            height: 250px;
-            background: linear-gradient(to right, #FF6B6B 0%, #FF6B6B 50%, #FFA07A 50%);
-            border: 2px solid #333;
-            transform: rotate(20deg);
-        }
-
-        .book-left {
-            bottom: 15%;
-            left: 1%;
-            width: 100px;
-            height: 80px;
-            background: #4ECDC4;
-            border: 3px solid #333;
-            border-radius: 5px;
-            transform: rotate(-10deg);
-        }
-
-        .calculator-right {
-            bottom: 20%;
-            right: 2%;
-            width: 90px;
-            height: 120px;
-            background: #95E1D3;
-            border: 3px solid #333;
-            border-radius: 8px;
-            transform: rotate(15deg);
-        }
-
-        .eraser-top {
-            top: 40%;
-            left: 5%;
-            width: 70px;
-            height: 40px;
-            background: #FF69B4;
-            border-radius: 5px;
-            transform: rotate(-25deg);
-        }
-
-        .compass-top {
-            top: 50%;
-            right: 5%;
-            width: 60px;
-            height: 100px;
-            border-left: 3px solid #666;
-            border-right: 3px solid #666;
-            transform: rotate(30deg);
         }
 
         /* Container */
@@ -113,7 +37,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: url("./aset_gambar/gambar_background.jpeg") no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -132,7 +57,7 @@
             text-align: center;
             margin-bottom: 30px;
             animation: slideDown 0.8s ease-out;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
         }
 
         .splash-btn {
@@ -144,14 +69,14 @@
             cursor: pointer;
             font-weight: bold;
             color: #333;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             animation: pulse 2s infinite;
         }
 
         .splash-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         /* Pages */
@@ -172,7 +97,7 @@
             border-radius: 20px;
             text-align: center;
             margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .header h1 {
@@ -194,7 +119,7 @@
 
         .back-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* Content Box */
@@ -203,7 +128,7 @@
             padding: 20px;
             border-radius: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             border: 3px solid #e8d5b7;
         }
 
@@ -223,13 +148,13 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             border: 3px solid #fff;
         }
 
         .card-bangun:hover {
             transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
         .card-bangun h3 {
@@ -268,7 +193,7 @@
             justify-content: center;
             margin: 20px auto;
             border: 3px solid #667eea;
-            color:white;
+            color: white;
             font-size: 1.1rem;
             overflow: hidden;
             box-sizing: border-box;
@@ -288,7 +213,7 @@
             border-radius: 15px;
             border-left: 5px solid #667eea;
             margin: 15px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .rumus-box h4 {
@@ -341,12 +266,12 @@
             font-size: 1rem;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .ar-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         .ar-btn.camera {
@@ -365,13 +290,13 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 30px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
 
         .start-quiz-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         /* Quiz Section */
@@ -379,7 +304,7 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .question-box {
@@ -445,13 +370,24 @@
 
         /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; display: none; }
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                display: none;
+            }
         }
 
         @keyframes slideDown {
@@ -459,6 +395,7 @@
                 transform: translateY(-50px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -466,8 +403,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         /* Responsive */
@@ -669,8 +613,8 @@
             box-shadow: 0 10px 28px rgba(102, 126, 234, 0.45);
         }
 
-        .profil-back-btn:active { 
-            transform: scale(0.97); 
+        .profil-back-btn:active {
+            transform: scale(0.97);
         }
 
         .profil-back-btn svg {
@@ -692,30 +636,62 @@
             color: #FFD700;
         }
 
+        /* Jaring-jaring grid styling */
+        .jaring-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .jaring-grid .materi-image {
+            width: 100%;
+            height: 200px;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .jaring-grid .materi-image img {
+            max-height: 150px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .jaring-grid {
+                grid-template-columns: 1fr 1fr;
+                /* Keep 2 columns on mobile as requested */
+            }
+        }
+
         @media (max-width: 480px) {
-            #profil-page { padding: 30px 16px 50px; }
-            .profil-card-body { padding: 68px 20px 28px; }
-            .profil-name { font-size: 1.3rem; }
-            .profil-back-btn { font-size: 0.95rem; padding: 13px 24px; }
+            #profil-page {
+                padding: 30px 16px 50px;
+            }
+
+            .profil-card-body {
+                padding: 68px 20px 28px;
+            }
+
+            .profil-name {
+                font-size: 1.3rem;
+            }
+
+            .profil-back-btn {
+                font-size: 0.95rem;
+                padding: 13px 24px;
+            }
         }
     </style>
 </head>
-<body>
-    <!-- Background Decorations -->
-    <div class="bg-decorations">
-        <div class="decoration pencil-left"></div>
-        <div class="decoration ruler-right"></div>
-        <div class="decoration book-left"></div>
-        <div class="decoration calculator-right"></div>
-        <div class="decoration eraser-top"></div>
-        <div class="decoration compass-top"></div>
-    </div>
 
+<body>
     <!-- Splash Screen -->
     <div id="splash-screen">
         <h1 class="splash-title">🎓 Belajar Bangun Ruang<br>Interaktif 🎓</h1>
         <button class="splash-btn" onclick="startApp()">Masuk</button>
-        <button class="splash-btn" style="background: #FF6B6B; margin-top: 15px;" onclick="goToLandingPage()">⬅️ Kembali</button>
+        <button class="splash-btn" style="background: #FF6B6B; margin-top: 15px;" onclick="goToLandingPage()">⬅️
+            Kembali</button>
     </div>
 
     <!-- Home Page -->
@@ -727,7 +703,8 @@
         </div>
 
         <div class="content-box">
-            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">Pilih Bangun Ruang yang Ingin Dipelajari</h2>
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">Pilih Bangun Ruang yang Ingin
+                Dipelajari</h2>
             <div class="grid-bangun">
                 <div class="card-bangun" onclick="showMateri('kubus')">
                     <h3>Kubus</h3>
@@ -753,7 +730,8 @@
     <div id="materi-page" class="page container">
         <div class="header">
             <h1 id="materi-title">Materi Bangun Ruang</h1>
-            <p id="materi-deskripsi" style="font-size: 0.95rem; margin-top: 8px; color: #f0f0f0; font-style: italic;"></p>
+            <p id="materi-deskripsi" style="font-size: 0.95rem; margin-top: 8px; color: #f0f0f0; font-style: italic;">
+            </p>
             <button class="back-btn" onclick="showPage('home-page')">⬅️ Kembali ke Beranda</button>
         </div>
 
@@ -802,21 +780,41 @@
             <!-- Jaring-jaring Bangun Ruang -->
             <div class="materi-section">
                 <h2>Jaring-jaring <span id="jaring-title">Bangun Ruang</span></h2>
-                <div class="materi-image" id="gambar-jaring">
-                    <!-- GAMBAR JARING-JARING 1 -->
-                    <p>Jaring-jaring</p>
-                </div>
-                <div class="materi-image" id="gambar-jaring2">
-                    <!-- GAMBAR JARING-JARING 2 -->
-                    <p>Jaring-jaring</p>
-                </div>
-                <div class="materi-image" id="gambar-jaring3">
-                    <!-- GAMBAR JARING-JARING 3 -->
-                    <p>Jaring-jaring</p>
-                </div>
-                <div class="materi-image" id="gambar-jaring4">
-                    <!-- GAMBAR JARING-JARING 4 -->
-                    <p>Jaring-jaring</p>
+                <div id="jaring-wrapper">
+                    <div class="materi-image" id="gambar-jaring">
+                        <!-- GAMBAR JARING-JARING 1 -->
+                        <p>Jaring-jaring 1</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring2">
+                        <!-- GAMBAR JARING-JARING 2 -->
+                        <p>Jaring-jaring 2</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring3">
+                        <!-- GAMBAR JARING-JARING 3 -->
+                        <p>Jaring-jaring 3</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring4">
+                        <!-- GAMBAR JARING-JARING 4 -->
+                        <p>Jaring-jaring 4</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring5">
+                        <p>Jaring-jaring 5</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring6">
+                        <p>Jaring-jaring 6</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring7">
+                        <p>Jaring-jaring 7</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring8">
+                        <p>Jaring-jaring 8</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring9">
+                        <p>Jaring-jaring 9</p>
+                    </div>
+                    <div class="materi-image" id="gambar-jaring10">
+                        <p>Jaring-jaring 10</p>
+                    </div>
                 </div>
                 <div class="materi-image" id="gambar-tambahan">
                     <!-- GAMBAR TAMBAHAN -->
@@ -828,16 +826,9 @@
             <div class="materi-section ar-section">
                 <h2>Model 3D Interaktif & AR</h2>
                 <p style="margin-bottom: 15px;">Putar, zoom, dan lihat model dalam Augmented Reality!</p>
-                
-                <model-viewer id="ar-viewer"
-                    src=""
-                    alt="Model 3D Bangun Ruang"
-                    auto-rotate
-                    autoplay
-                    camera-controls
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    shadow-intensity="1">
+
+                <model-viewer id="ar-viewer" src="" alt="Model 3D Bangun Ruang" auto-rotate autoplay camera-controls ar
+                    ar-modes="webxr scene-viewer quick-look" shadow-intensity="1">
                 </model-viewer>
 
                 <div class="ar-controls">
@@ -854,7 +845,7 @@
                         Buka Kamera AR
                     </button>
                 </div>
-                
+
                 <p style="margin-top: 15px; text-align: center; color: #666;">
                     <strong>Tips:</strong> Gunakan tombol "Buka Kamera AR" untuk melihat bangun ruang di dunia nyata!
                 </p>
@@ -862,7 +853,7 @@
 
             <!-- Tombol Mulai Kuis -->
             <button class="start-quiz-btn" onclick="startQuiz()">
-                 Mulai Kuis! Ayo, Uji Pemahamanmu!
+                Mulai Kuis! Ayo, Uji Pemahamanmu!
             </button>
         </div>
     </div>
@@ -945,7 +936,7 @@
                 gambarJaring2: "./aset_gambar/gambar_jaring_jaring_kubus_2.png",
                 gambarJaring3: "./aset_gambar/gambar_jaring_jaring_kubus_3.png",
                 gambarJaring4: "./aset_gambar/gambar_jaring_jaring_kubus_4.png",
-                gambarTambahan: "./aset_gambar/gambar_jaring_jaring_kubus_5.png",
+                gambarJaring5: "./aset_gambar/gambar_jaring_jaring_kubus_5.png",
                 animasiJaring: "./Aset animasi/animasi jaring jaring kubus.glb"
             },
             balok: {
@@ -1160,7 +1151,7 @@
                 gambarJaring4: "./aset_gambar/gambar_jaring_jaring_limas_2.png",
                 animasiJaring: "./Aset animasi/animasi jaring jaring limas.glb"
             },
-            };
+        };
 
 
         // Data Kuis untuk setiap Bangun Ruang
@@ -1199,8 +1190,8 @@
                     correct: 1
                 },
                 {
-                    question: "Volume balok dengan ukuran 4cm × 3cm × 2cm adalah...",
-                    options: ["A. 12 cm³", "B. 18 cm³", "C. 24 cm³", "D. 26 cm³"],
+                    question: "Sebuah aquarium berbentuk balok memiliki panjang 60 cm, lebar 40 cm, dan tinggi 25 cm. Tentukan volume dari aquarium tersebut!",
+                    options: ["A. 40.000 cm³", "B. 70.000 cm³", "C. 50.000 cm³", "D. 60.000 cm³"],
                     correct: 2
                 },
                 {
@@ -1306,7 +1297,7 @@
         function showMateri(bangun) {
             currentBangun = bangun;
             const data = materiData[bangun];
-            
+
             // Update konten
             document.getElementById('materi-title').innerHTML = data.title;
             document.getElementById('materi-deskripsi').innerHTML = data.deskripsi || '';
@@ -1318,57 +1309,54 @@
             document.getElementById('contoh-luas').innerHTML = data.contohLuas;
             document.getElementById('rumus-volume').innerHTML = data.rumusVolume;
             document.getElementById('contoh-volume').innerHTML = data.contohVolume;
-            
+
             // Tampilkan gambar bentuk
             if (data.gambar) {
                 const gambarDiv = document.getElementById('gambar-bentuk');
                 if (gambarDiv) {
                     let gambarHTML = `<img src="${data.gambar}" alt="Gambar ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
-                    
+
                     // Tambahkan paragraf untuk prisma dan limas
                     if (currentBangun === 'prisma') {
                         gambarHTML += `<p style="margin-top: 15px; font-weight: bold; color: #667eea;">Contoh : Prisma Segitiga</p>`;
                     } else if (currentBangun === 'limas') {
                         gambarHTML += `<p style="margin-top: 15px; font-weight: bold; color: #667eea;">Contoh : Limas Segiempat</p>`;
                     }
-                    
+
                     gambarDiv.innerHTML = gambarHTML;
                 }
             }
-            
-            // Tampilkan gambar jaring-jaring
-            if (data.gambarJaring) {
-                const gambarJaringDiv = document.getElementById('gambar-jaring');
-                if (gambarJaringDiv) {
-                    let deskripsi = data.deskripsiJaring ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring}</p>` : '';
-                    gambarJaringDiv.innerHTML = `<img src="${data.gambarJaring}" alt="Jaring-jaring ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
+
+            // Atur gaya grid jaring-jaring khusus balok & kubus
+            const jaringWrapper = document.getElementById('jaring-wrapper');
+            if (jaringWrapper) {
+                if (bangun === 'kubus' || bangun === 'balok') {
+                    jaringWrapper.className = 'jaring-grid';
+                } else {
+                    jaringWrapper.className = '';
                 }
             }
-            
-            // Tampilkan gambar jaring-jaring 2
-            if (data.gambarJaring2) {
-                const gambarJaring2Div = document.getElementById('gambar-jaring2');
-                if (gambarJaring2Div) {
-                    let deskripsi = data.deskripsiJaring2 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring2}</p>` : '';
-                    gambarJaring2Div.innerHTML = `<img src="${data.gambarJaring2}" alt="Jaring-jaring 2 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
-                }
-            }
-            
-            // Tampilkan gambar jaring-jaring 3
-            if (data.gambarJaring3) {
-                const gambarJaring3Div = document.getElementById('gambar-jaring3');
-                if (gambarJaring3Div) {
-                    let deskripsi = data.deskripsiJaring3 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring3}</p>` : '';
-                    gambarJaring3Div.innerHTML = `<img src="${data.gambarJaring3}" alt="Jaring-jaring 3 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
-                }
-            }
-            
-            // Tampilkan gambar jaring-jaring 4
-            if (data.gambarJaring4) {
-                const gambarJaring4Div = document.getElementById('gambar-jaring4');
-                if (gambarJaring4Div) {
-                    let deskripsi = data.deskripsiJaring4 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring4}</p>` : '';
-                    gambarJaring4Div.innerHTML = `<img src="${data.gambarJaring4}" alt="Jaring-jaring 4 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
+
+            // Tampilkan gambar jaring-jaring 1 sampai 10
+            for (let i = 1; i <= 10; i++) {
+                const key = i === 1 ? 'gambarJaring' : `gambarJaring${i}`;
+                const divId = i === 1 ? 'gambar-jaring' : `gambar-jaring${i}`;
+                const divEl = document.getElementById(divId);
+
+                if (divEl) {
+                    if (data[key]) {
+                        let deskripsiKey = i === 1 ? 'deskripsiJaring' : `deskripsiJaring${i}`;
+                        let deskripsi = data[deskripsiKey] ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data[deskripsiKey]}</p>` : '';
+                        divEl.innerHTML = `<img src="${data[key]}" alt="Jaring-jaring ${i} ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
+                        divEl.style.display = 'flex';
+                    } else {
+                        if (bangun === 'kubus' || bangun === 'balok') {
+                            divEl.innerHTML = `<p style="color: #667eea; text-align: center;">Tempat Jaring-jaring ${i}</p>`;
+                            divEl.style.display = 'flex';
+                        } else {
+                            divEl.style.display = 'none';
+                        }
+                    }
                 }
             }
 
@@ -1377,18 +1365,16 @@
             if (gambarTambahanDiv) {
                 if (data.gambarTambahan) {
                     gambarTambahanDiv.innerHTML = `<img src="${data.gambarTambahan}" alt="Gambar Tambahan ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
-                } else if (data.gambarJaring5) {
-                    let deskripsi = data.deskripsiJaring5 ? `<p style="margin-top: 10px; font-weight: bold; color: #667eea;">${data.deskripsiJaring5}</p>` : '';
-                    gambarTambahanDiv.innerHTML = `<img src="${data.gambarJaring5}" alt="Jaring-jaring 5 ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
+                    gambarTambahanDiv.style.display = 'flex';
                 } else {
                     gambarTambahanDiv.style.display = 'none';
                 }
             }
-            
+
             // Update AR model (default ke normal)
             const viewer = document.getElementById('ar-viewer');
             viewer.src = data.arNormal;
-            
+
             showPage('materi-page');
         }
 
@@ -1396,7 +1382,7 @@
         function changeARModel(type) {
             const viewer = document.getElementById('ar-viewer');
             const data = materiData[currentBangun];
-            
+
             if (type === 'normal') {
                 viewer.src = data.arNormal;
             } else if (type === 'transparent') {
@@ -1408,7 +1394,7 @@
         function playJaringAnimation() {
             const viewer = document.getElementById('ar-viewer');
             const data = materiData[currentBangun];
-            
+
             // Cek apakah ada file animasi untuk bangun ruang ini
             if (data.animasiJaring) {
                 viewer.src = data.animasiJaring;
@@ -1443,7 +1429,7 @@
             const quiz = quizData[currentBangun];
             const question = quiz[currentQuizIndex];
             answered = false;
-            
+
             const quizContainer = document.getElementById('quiz-container');
             quizContainer.innerHTML = `
                 <div class="question-box">
@@ -1463,21 +1449,21 @@
         function checkAnswer(selected) {
             if (answered) return;
             answered = true;
-            
+
             const quiz = quizData[currentBangun];
             const question = quiz[currentQuizIndex];
             const buttons = document.querySelectorAll('.option-btn');
-            
+
             buttons[selected].classList.add(selected === question.correct ? 'correct' : 'wrong');
             buttons[question.correct].classList.add('correct');
-            
+
             if (selected === question.correct) {
                 score += 20;
             }
-            
+
             // Disable all buttons
             buttons.forEach(btn => btn.style.pointerEvents = 'none');
-            
+
             // Next question after delay
             setTimeout(() => {
                 currentQuizIndex++;
@@ -1494,7 +1480,7 @@
             const quizContainer = document.getElementById('quiz-container');
             let message = '';
             let emoji = '';
-            
+
             if (score === 100) {
                 message = 'Sempurna! Kamu Master Bangun Ruang! 🏆';
                 emoji = '🎉';
@@ -1508,7 +1494,7 @@
                 message = 'Ayo Semangat! Coba Lagi! 📚';
                 emoji = '💪';
             }
-            
+
             quizContainer.innerHTML = `
                 <div class="quiz-result">
                     <h2>✨ Kuis Selesai! ✨</h2>
@@ -1526,4 +1512,5 @@
         }
     </script>
 </body>
+
 </html>

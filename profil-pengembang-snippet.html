@@ -17,6 +17,8 @@
         align-items: center;
         justify-content: center;
         padding: 40px 20px 60px;
+        background: url("./aset_gambar/gambar_background.jpeg") no-repeat center center fixed;
+        background-size: cover;
     }
 
     /* ── Kartu Profil (gaya Kartu Tanda Pelajar) ── */
@@ -296,20 +298,6 @@
     }
 
     /* ── Dekorasi bintang kecil di kartu ── */
-    .profil-stars {
-        position: absolute;
-        top: 14px;
-        right: 18px;
-        display: flex;
-        gap: 4px;
-        opacity: 0.5;
-    }
-
-    .profil-stars span {
-        font-size: 0.7rem;
-        color: #FFD700;
-    }
-
     /* ── Animasi ── */
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
@@ -346,11 +334,6 @@
 <div id="profil-page" class="page">
 
     <div class="profil-card">
-
-        <!-- Bintang dekorasi pojok -->
-        <div class="profil-stars">
-            <span>★</span><span>★</span><span>★</span>
-        </div>
 
         <!-- ── Header strip ungu ── -->
         <div class="profil-card-header">
