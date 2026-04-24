@@ -1360,7 +1360,7 @@
                         divEl.innerHTML = `<img src="${data[key]}" alt="Jaring-jaring ${i} ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">${deskripsi}`;
                         divEl.style.display = 'flex';
                     } else {
-                        if (bangun === 'kubus' || bangun === 'balok') {
+                        if (bangun === 'kubus' || (bangun === 'balok' && i <= 8)) {
                             divEl.innerHTML = `<p style="color: #667eea; text-align: center;">Tempat Jaring-jaring ${i}</p>`;
                             divEl.style.display = 'flex';
                         } else {
