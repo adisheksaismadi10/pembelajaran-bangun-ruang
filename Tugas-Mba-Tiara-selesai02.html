@@ -815,12 +815,12 @@
                     <div class="materi-image" id="gambar-jaring10">
                         <p>Jaring-jaring 10</p>
                     </div>
-                </div>
-                <div class="materi-image" id="gambar-tambahan">
-                    <!-- GAMBAR TAMBAHAN -->
-                    <p>Gambar Tambahan</p>
+                    <div class="materi-image" id="gambar-jaring11">
+                        <p>Jaring-jaring 11</p>
+                    </div>
                 </div>
             </div>
+
 
             <!-- AR Interaktif -->
             <div class="materi-section ar-section">
@@ -1347,8 +1347,8 @@
                 }
             }
 
-            // Tampilkan gambar jaring-jaring 1 sampai 10
-            for (let i = 1; i <= 10; i++) {
+            // Tampilkan gambar jaring-jaring 1 sampai 11
+            for (let i = 1; i <= 11; i++) {
                 const key = i === 1 ? 'gambarJaring' : `gambarJaring${i}`;
                 const divId = i === 1 ? 'gambar-jaring' : `gambar-jaring${i}`;
                 const divEl = document.getElementById(divId);
@@ -1367,17 +1367,6 @@
                             divEl.style.display = 'none';
                         }
                     }
-                }
-            }
-
-            // Tampilkan gambar tambahan (khusus untuk kubus dan limas)
-            const gambarTambahanDiv = document.getElementById('gambar-tambahan');
-            if (gambarTambahanDiv) {
-                if (data.gambarTambahan) {
-                    gambarTambahanDiv.innerHTML = `<img src="${data.gambarTambahan}" alt="Gambar Tambahan ${data.title}" style="max-width: 300px; height: auto; border-radius: 8px;">`;
-                    gambarTambahanDiv.style.display = 'flex';
-                } else {
-                    gambarTambahanDiv.style.display = 'none';
                 }
             }
 
