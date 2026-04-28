@@ -547,26 +547,29 @@
 </div><!-- /container -->
 
 <script>
+    // Audio for click sound - Suara yang lebih lembut (Soft UI Click)
+    const clickSound = new Audio('./backsound_button.mp3');
+    clickSound.volume = 1.0;
+
+    function playClickSound() {
+        clickSound.currentTime = 0;
+        clickSound.play().catch(err => console.log("Audio play failed:", err));
+    }
+
+    // Global event listener for button clicks
+    document.addEventListener('click', function(event) {
+        const target = event.target;
+        if (target.tagName === 'BUTTON' || target.closest('button')) {
+            playClickSound();
+        }
+    });
+
     /**
      * Sesuaikan fungsi ini dengan cara navigasi di proyek kamu.
-     *
-     * Jika single-file (semua halaman dalam 1 file HTML):
-     *   → ubah isi fungsi menjadi: showPage('home-page');
-     *
-     * Jika multi-file (halaman terpisah):
-     *   → biarkan seperti ini (window.history.back() atau ganti URL).
      */
     function goBack() {
-        // Play click sound
-        const clickSound = new Audio('https://motionape-website.s3.us-east-1.amazonaws.com/Freebies/SoundFX/Sounds/Mouse-click/Click-01.mp3');
-        clickSound.play().catch(err => console.log("Audio play failed:", err));
-
         // Small delay to let sound start before navigation
         setTimeout(() => {
-            // Opsi A — single file (uncomment baris di bawah jika perlu):
-            // showPage('home-page');
-
-            // Opsi B — multi file:
             window.history.back();
         }, 100);
     }

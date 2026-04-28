@@ -1283,8 +1283,9 @@
         let score = 0;
         let answered = false;
 
-        // Audio for click sound
-        const clickSound = new Audio('https://motionape-website.s3.us-east-1.amazonaws.com/Freebies/SoundFX/Sounds/Mouse-click/Click-01.mp3');
+        // --- Audio & Sound Handling ---
+        const clickSound = new Audio('./backsound_button.mp3');
+        clickSound.volume = 1.0;
 
         function playClickSound() {
             clickSound.currentTime = 0;
@@ -1299,6 +1300,8 @@
             }
         });
 
+        // --- Navigation & App Logic ---
+
         // Start Application
         function startApp() {
             document.getElementById('splash-screen').classList.add('hidden');
@@ -1310,7 +1313,9 @@
 
         // Go to Landing Page
         function goToLandingPage() {
-            window.location.href = 'index.html';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
         }
 
         // Show Page

@@ -393,7 +393,31 @@
             </div>
 
             <!-- Tombol kembali — menggunakan showPage() sesuai proyek asli -->
-                <button class="profil-back-btn" onclick="window.location.href='index.html'">
+            <script>
+                // Audio for click sound - Suara yang lebih lembut (Soft UI Click)
+                const clickSound = new Audio('./backsound_button.mp3');
+                clickSound.volume = 1.0;
+
+                function playClickSound() {
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(err => console.log("Audio play failed:", err));
+                }
+
+                // Global event listener for button clicks
+                document.addEventListener('click', function(event) {
+                    const target = event.target;
+                    if (target.tagName === 'BUTTON' || target.closest('button')) {
+                        playClickSound();
+                    }
+                });
+
+                function handleBack() {
+                    setTimeout(() => {
+                        window.location.href='index.html';
+                    }, 100);
+                }
+            </script>
+            <button class="profil-back-btn" onclick="handleBack()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12"/>
