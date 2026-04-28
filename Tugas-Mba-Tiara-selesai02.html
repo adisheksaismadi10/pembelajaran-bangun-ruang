@@ -732,7 +732,6 @@
             <h1 id="materi-title">Materi Bangun Ruang</h1>
             <p id="materi-deskripsi" style="font-size: 0.95rem; margin-top: 8px; color: #f0f0f0; font-style: italic;">
             </p>
-            <button class="back-btn" onclick="showPage('home-page')">⬅️ Kembali ke Beranda</button>
         </div>
 
         <div class="content-box">
@@ -852,6 +851,11 @@
             <!-- Tombol Mulai Kuis -->
             <button class="start-quiz-btn" onclick="startQuiz()">
                 Mulai Kuis! Ayo, Uji Pemahamanmu!
+            </button>
+
+            <!-- Tombol Kembali ke Beranda di posisi paling bawah -->
+            <button class="back-btn" onclick="showPage('home-page')" style="width: 100%; margin-top: 20px; padding: 15px; font-size: 1.1rem; border-radius: 15px;">
+                ⬅️ Kembali ke Beranda
             </button>
         </div>
     </div>
@@ -1278,6 +1282,22 @@
         let currentQuizIndex = 0;
         let score = 0;
         let answered = false;
+
+        // Audio for click sound
+        const clickSound = new Audio('https://motionape-website.s3.us-east-1.amazonaws.com/Freebies/SoundFX/Sounds/Mouse-click/Click-01.mp3');
+
+        function playClickSound() {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(err => console.log("Audio play failed:", err));
+        }
+
+        // Global event listener for button clicks
+        document.addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.tagName === 'BUTTON' || target.closest('button') || target.closest('.card-bangun')) {
+                playClickSound();
+            }
+        });
 
         // Start Application
         function startApp() {
