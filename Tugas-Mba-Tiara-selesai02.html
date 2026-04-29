@@ -682,6 +682,28 @@
                 padding: 13px 24px;
             }
         }
+        /* Visualisasi Unsur Gallery */
+        .visualisasi-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .visualisasi-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 3px solid #667eea;
+            transition: transform 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .visualisasi-img:hover {
+            transform: scale(1.02);
+        }
     </style>
 </head>
 
@@ -749,6 +771,12 @@
                 <h2>Unsur-unsur <span id="bangun-name">Bangun Ruang</span></h2>
                 <div id="unsur-content">
                     <!-- Konten unsur akan diisi dinamis -->
+                </div>
+                <button id="btn-toggle-visualisasi" class="ar-btn" onclick="toggleVisualisasi()" style="margin-top: 15px; width: 100%; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #333;">
+                    🖼️ Lihat Visualisasi Unsur
+                </button>
+                <div id="visualisasi-container" style="display: none; margin-top: 20px;">
+                    <div id="visualisasi-gallery" class="visualisasi-gallery"></div>
                 </div>
             </div>
 
@@ -944,7 +972,15 @@
                 gambarJaring8: "./aset_gambar/gambar_jaring_jaring_kubus_8.png",
                 gambarJaring9: "./aset_gambar/gambar_jaring_jaring_kubus_9.png",
                 gambarJaring10: "./aset_gambar/gambar_jaring_jaring_kubus_10.png",
-                animasiJaring: "./Aset animasi/animasi jaring jaring kubus.glb"
+                animasiJaring: "./Aset animasi/animasi jaring jaring kubus.glb",
+                visualisasiUnsur: [
+                    "./aset_gambar/Penjelasan_unsur_unsur_kubus_1.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_kubus_2.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_kubus_3.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_kubus_4.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_kubus_5.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_kubus_6.png"
+                ]
             },
             balok: {
                 title: "Balok",
@@ -1013,8 +1049,18 @@
                 gambarJaring6: "./aset_gambar/gambar_jaring_jaring_balok_6.png",
                 gambarJaring7: "./aset_gambar/gambar_jaring_jaring_balok_7.png",
                 gambarJaring8: "./aset_gambar/gambar_jaring_jaring_balok_8.png",
-                animasiJaring: "./Aset animasi/animasi jaring jaring balok.glb"
-
+                animasiJaring: "./Aset animasi/animasi jaring jaring balok.glb",
+                visualisasiUnsur: [
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_1.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_2.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_3.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_4.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_5.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_6.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_7.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_8.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_balok_9.png"
+                ]
             },
             prisma: {
                 title: "Prisma Segi-n",
@@ -1087,7 +1133,17 @@
                 gambarJaring2: "./aset_gambar/gambar_jaring_jaring_prisma_2.png",
                 gambarJaring3: "./aset_gambar/gambar_jaring_jaring_prisma_3.png",
                 gambarJaring4: "./aset_gambar/gambar_jaring_jaring_prisma_4.png",
-                animasiJaring: "./Aset animasi/animasi jaring jaring prisma.glb"
+                animasiJaring: "./Aset animasi/animasi jaring jaring prisma.glb",
+                visualisasiUnsur: [
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_1.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_2.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_3.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_4.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_5.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_6.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_7.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_prisma_8.png"
+                ]
             },
             limas: {
                 title: "Limas Segi-n",
@@ -1160,7 +1216,15 @@
                 gambarJaring2: "./aset_gambar/gambar_jaring_jaring_limas_4.png",
                 gambarJaring3: "./aset_gambar/gambar_jaring_jaring_limas_3.png",
                 gambarJaring4: "./aset_gambar/gambar_jaring_jaring_limas_2.png",
-                animasiJaring: "./Aset animasi/animasi jaring jaring limas.glb"
+                animasiJaring: "./Aset animasi/animasi jaring jaring limas.glb",
+                visualisasiUnsur: [
+                    "./aset_gambar/Penjelasan_unsur_unsur_limas_1.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_limas_2.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_limas_3.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_limas_4.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_limas_5.png",
+                    "./aset_gambar/Penjelasan_unsur_unsur_limas_6.png"
+                ]
             },
         };
 
@@ -1408,7 +1472,39 @@
             const viewer = document.getElementById('ar-viewer');
             viewer.src = data.arNormal;
 
+            // Reset visualisasi gallery
+            document.getElementById('visualisasi-container').style.display = 'none';
+            document.getElementById('btn-toggle-visualisasi').textContent = '🖼️ Lihat Visualisasi Unsur';
+            document.getElementById('visualisasi-gallery').innerHTML = '';
+
             showPage('materi-page');
+        }
+
+        // Toggle Visualisasi Unsur
+        function toggleVisualisasi() {
+            const container = document.getElementById('visualisasi-container');
+            const gallery = document.getElementById('visualisasi-gallery');
+            const btn = document.getElementById('btn-toggle-visualisasi');
+            const data = materiData[currentBangun];
+
+            if (container.style.display === 'none') {
+                // Tampilkan
+                if (data.visualisasiUnsur && data.visualisasiUnsur.length > 0) {
+                    let html = '';
+                    data.visualisasiUnsur.forEach((imgUrl, index) => {
+                        html += `<img src="${imgUrl}" alt="Visualisasi ${currentBangun} ${index + 1}" class="visualisasi-img">`;
+                    });
+                    gallery.innerHTML = html;
+                    container.style.display = 'block';
+                    btn.textContent = '✖️ Tutup Visualisasi Unsur';
+                } else {
+                    alert('Visualisasi untuk bangun ini belum tersedia.');
+                }
+            } else {
+                // Sembunyikan
+                container.style.display = 'none';
+                btn.textContent = '🖼️ Lihat Visualisasi Unsur';
+            }
         }
 
         // Change AR Model
