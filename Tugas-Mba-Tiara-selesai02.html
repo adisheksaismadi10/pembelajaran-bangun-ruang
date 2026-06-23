@@ -182,29 +182,41 @@
         }
 
         .materi-image {
-            width: 500px;
-            height: 300px;
+            width: 100%;
             max-width: 100%;
-            max-height: 600px;
+            min-height: 220px;
+            height: auto;
             background: white;
             border-radius: 15px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 20px auto;
             border: 3px solid #667eea;
-            color: white;
-            font-size: 1.1rem;
+            color: #333;
+            font-size: 1rem;
             overflow: hidden;
             box-sizing: border-box;
+            padding: 15px;
+            text-align: center;
         }
 
         .materi-image img {
             max-width: 100%;
-            max-height: 100%;
-            width: 500px;
-            height: 300px;
+            width: auto;
+            height: auto;
+            max-height: 240px;
             object-fit: contain;
+        }
+
+        .materi-image p {
+            margin: 10px 0 0;
+            padding: 0 10px;
+            color: #667eea;
+            font-weight: bold;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
         .rumus-box {
@@ -422,7 +434,7 @@
             }
 
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
 
             .card-bangun {
@@ -439,6 +451,47 @@
 
             model-viewer {
                 height: 300px;
+            }
+
+            .materi-image {
+                min-height: 180px;
+                padding: 12px;
+            }
+
+            .materi-image img {
+                max-height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #profil-page {
+                padding: 30px 16px 50px;
+            }
+
+            .profil-card-body {
+                padding: 68px 20px 28px;
+            }
+
+            .profil-name {
+                font-size: 1.3rem;
+            }
+
+            .profil-back-btn {
+                font-size: 0.95rem;
+                padding: 13px 24px;
+            }
+
+            .materi-image {
+                min-height: 160px;
+                padding: 10px;
+            }
+
+            .materi-image img {
+                max-height: 180px;
+            }
+
+            .materi-image p {
+                font-size: 0.95rem;
             }
         }
 
@@ -915,11 +968,13 @@
                 unsur: `
                     <div class="rumus-box">
                         <h4>Kubus memiliki unsur-unsur sebagai berikut:</h4>
-                        <h4>- Mempunyai 8 titik sudut, yaitu A, B, C, D, E, F, G, dan H.</h4>
-                        <h4>- Mempunyai 12 rusuk, yaitu AB, BC, CD, DA, AE, EF, FG, GH, HE, HD, CG, dan BF.</h4>
-                        <h4>- Mempunyai 12 diagonal sisi, yaitu AC, BD, AF, EB, BG, CF, CH, GD, HA, DE, EG, dan FH.</h4>
-                        <h4>- Mempunyai 4 diagonal ruang, yaitu: HB, EC, FD, dan GA</h4>
-                        <h4>- Mempunyai 6 bidang digonal, yaitu AEGC, BFHD, BCHE, ADGF, ABGH, dan CDEF.</h4>
+                        <h4>- Mempunyai 6 sisi berbentuk persegi yang saling berhadapan dan sama besar.</h4>
+                        <h4>- Mempunyai 12 rusuk yang sama panjang.</h4>
+                        <h4>- Mempunyai 8 titik sudut.</h4>
+                        <h4>- Mempunyai 12 diagonal bidang.</h4>
+                        <h4>- Mempunyai 4 diagonal ruang.</h4>
+                        <h4>- Mempunyai 6 bidang diagonal.</h4>
+
                     </div>
                 `,
                 rumusLuas: `
@@ -1279,7 +1334,7 @@
                 },
                 {
                     question: "Rumus luas permukaan kubus adalah...",
-                    options: ["A. 4s²", "B. 6s²", "C. s³", "D. 8s²"],
+                    options: ["A. 4r²", "B. 6r²", "C. r³", "D. 8r²"],
                     correct: 1
                 },
                 {
@@ -1509,7 +1564,7 @@
 
             // Reset visualisasi gallery
             document.getElementById('visualisasi-container').style.display = 'none';
-            document.getElementById('btn-toggle-visualisasi').textContent = '🖼️ Lihat Visualisasi Unsur';
+            // document.getElementById('btn-toggle-visualisasi').textContent = '🖼️ Lihat Visualisasi Unsur';
             document.getElementById('visualisasi-gallery').innerHTML = '';
 
             showPage('materi-page');
